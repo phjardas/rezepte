@@ -1,0 +1,35 @@
+{
+  "name": "rezepte",
+  "private": true,
+  "scripts": {
+    "start": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts start",
+    "build": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts build",
+    "deploy": "firebase deploy"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.1",
+    "@material-ui/icons": "^4.9.1",
+    "clsx": "^1.0.4",
+    "firebase": "^7.8.0",
+    "query-string": "^6.11.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-firebase-hooks": "^2.1.1",
+    "react-helmet-async": "^1.0.4",
+    "react-router": "next",
+    "react-router-dom": "next"
+  },
+  "devDependencies": {
+    "firebase-tools": "^7.12.1",
+    "react-scripts": "3.4.0"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

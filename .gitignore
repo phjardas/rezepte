@@ -1,0 +1,6 @@
+/.firebase/
+/.yarn/unplugged/
+/.yarn/build-state.yml
+/build/
+/node_modules/
+*.log
