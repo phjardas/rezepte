@@ -1,20 +1,19 @@
 import qs from 'query-string';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MiniLayout from '../MiniLayout';
-import Redirect from '../Redirect';
 import SignIn from '../SignIn';
 
 export default function SignInPage() {
-  const [success, setSuccess] = useState(null);
-
-  if (success) {
-    const { from } = qs.parse(window.location.pathname);
-    return <Redirect to={from || '/'} />;
-  }
+  const navigate = useNavigate();
+  const onSuccess = useCallback(() => {
+    const from = qs.parse(window.location.search) || '/';
+    navigate(from);
+  }, [navigate]);
 
   return (
     <MiniLayout>
-      <SignIn onSuccess={() => setSuccess(true)} />
+      <SignIn onSuccess={onSuccess} />
     </MiniLayout>
   );
 }

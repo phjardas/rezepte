@@ -13,7 +13,7 @@ export default function Pages() {
       <BrowserRouter>
         <Routes>
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/rezepte" element={<Rezepte />} />
+          <Route path="/rezepte/*" element={<Rezepte />} />
           <Route path="/" element={<Redirect to="/rezepte" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
