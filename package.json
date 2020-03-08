@@ -1,6 +1,7 @@
 {
   "name": "rezepte",
   "private": true,
+  "homepage": "https://rezepte.jardas.de",
   "scripts": {
     "start": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts start",
     "build": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts build",
