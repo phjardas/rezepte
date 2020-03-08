@@ -1,4 +1,4 @@
-import { Button, CircularProgress, makeStyles, TextField } from '@material-ui/core';
+import { Button, CircularProgress, makeStyles, TextField, Typography } from '@material-ui/core';
 import { Field, Form, Formik } from 'formik';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -49,8 +49,13 @@ export default function RezeptForm({ rezept }) {
 
   return (
     <Formik initialValues={initialValues} validationSchema={schema} onSubmit={onSubmit}>
-      {({ dirty, isValid, isSubmitting }) => (
+      {({ dirty, isValid, isSubmitting, status }) => (
         <Form>
+          {status && (
+            <Typography color="error" gutterBottom>
+              {status.message}
+            </Typography>
+          )}
           <Field name="title">
             {({ field, meta }) => (
               <TextField

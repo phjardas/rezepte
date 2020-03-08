@@ -3,13 +3,14 @@ import { Edit as EditIcon } from '@material-ui/icons';
 import React from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../auth';
 import { useRezept } from '../../data';
 import ErrorMessage from '../../ErrorMessage';
 import Fab from '../../Fab';
 import { Grid, GridTile } from '../../Grid';
 import Layout from '../../Layout';
 import Loading from '../../Loading';
-import { useAuth } from '../../auth';
+import UserChip from '../../UserChip';
 
 export default function RezeptPage() {
   const { id } = useParams();
@@ -30,6 +31,7 @@ function Rezept({ rezept }) {
 
   return (
     <>
+      <UserChip id={rezept.owner} style={{ float: 'right' }} />
       <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
         {rezept.text}
       </Typography>

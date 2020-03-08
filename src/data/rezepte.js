@@ -29,7 +29,7 @@ export function useSaveRezept(id) {
     async (values, images) => {
       const ref = id ? rezepteColl.doc(id) : rezepteColl.doc();
       const savedImages = await Promise.all(images.map((img) => (img.src ? img : saveImage(img, ref.id))));
-      const rezept = { ...values, id, images: savedImages, owner: user.id };
+      const rezept = { ...values, images: savedImages, owner: user.id };
       await ref.set(rezept);
       return ref;
     },
