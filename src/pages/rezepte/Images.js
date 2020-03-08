@@ -1,11 +1,36 @@
-import { Card, CardContent, CircularProgress, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { Delete as DeleteIcon } from '@material-ui/icons';
+import { CircularProgress, IconButton, makeStyles, Typography } from '@material-ui/core';
+import { Delete as DeleteIcon, AddPhotoAlternate as AddImageIcon } from '@material-ui/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Grid, GridTile } from '../../Grid';
 
-const useStyles = makeStyles(({ palette }) => ({
+const useStyles = makeStyles(({ palette, spacing }) => ({
   root: {},
+  dropzone: {
+    display: 'flex',
+  },
+  dropzoneInner: {
+    flex: 1,
+    outline: `dashed 3px ${palette.primary.main}`,
+    padding: spacing(2),
+    textAlign: 'center',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    '&:hover': {
+      background: palette.grey[100],
+    },
+  },
+  dropzoneInnerDrag: {
+    outlineStyle: 'solid',
+    background: palette.grey[100],
+  },
+  dropzoneIcon: {
+    fontSize: '3rem',
+    marginBottom: spacing(1),
+    color: palette.text.secondary,
+  },
   actions: {
     position: 'absolute',
     bottom: 0,
@@ -31,19 +56,18 @@ export default function Images({ images, setImages }) {
   return (
     <div className={classes.root}>
       <Typography variant="subtitle1">Bilder</Typography>
-      {images.length > 0 && (
-        <Grid>
-          {images.map((img, i) =>
-            img.src ? <ExistingImage key={i} img={img} removeImage={removeImage} /> : <NewImage key={i} file={img} removeImage={removeImage} />
-          )}
-        </Grid>
-      )}
-      <div {...getRootProps()}>
-        <input {...getInputProps()} />
-        <Card raised={isDragActive}>
-          <CardContent>{isDragActive ? 'Lege die Bilder hier ab.' : 'Ziehe Bilder hierher oder klicke.'}</CardContent>
-        </Card>
-      </div>
+      <Grid>
+        {images.map((img, i) =>
+          img.src ? <ExistingImage key={i} img={img} removeImage={removeImage} /> : <NewImage key={i} file={img} removeImage={removeImage} />
+        )}
+        <GridTile className={classes.dropzone}>
+          <div {...getRootProps()} className={`${classes.dropzoneInner} ${isDragActive ? classes.dropzoneInnerDrag : ''}`}>
+            <input {...getInputProps()} />
+            <AddImageIcon className={classes.dropzoneIcon} />
+            <Typography variant="body2">{isDragActive ? 'Lege die Bilder hier ab.' : 'Ziehe Bilder hierher oder klicke.'}</Typography>
+          </div>
+        </GridTile>
+      </Grid>
     </div>
   );
 }

@@ -7,7 +7,15 @@ import CacheNotification from './CacheNotification';
 import UpdateNotification from './UpdateNotification';
 import UserProfileButton from './UserProfileButton';
 
-const useStyles = makeStyles(({ mixins, spacing }) => ({
+const useStyles = makeStyles(({ breakpoints, mixins, shadows, spacing }) => ({
+  wrapper: {
+    [breakpoints.up('lg')]: {
+      width: breakpoints.values.lg - spacing(8),
+      margin: `${spacing(4)}px auto 0`,
+      boxShadow: shadows[4],
+      position: 'relative',
+    },
+  },
   gutter: {
     ...mixins.gutters(),
     paddingTop: spacing(2),
@@ -22,7 +30,7 @@ export default function Layout({ title, back, gutter, children }) {
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.wrapper}>
       <Helmet>
         <title>{title ? `${title} - Rezepte` : 'Rezepte'}</title>
       </Helmet>
@@ -42,6 +50,6 @@ export default function Layout({ title, back, gutter, children }) {
       <main className={gutter && classes.gutter}>{children}</main>
       <CacheNotification />
       <UpdateNotification />
-    </>
+    </div>
   );
 }

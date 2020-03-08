@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import React from 'react';
 import { useParams } from 'react-router';
@@ -26,17 +26,22 @@ export default function RezeptPage() {
   );
 }
 
+const useStyles = makeStyles(({ spacing }) => ({
+  images: {
+    marginTop: spacing(2),
+  },
+}));
+
 function Rezept({ rezept }) {
+  const classes = useStyles();
   const { user } = useAuth();
 
   return (
     <>
       <UserChip id={rezept.owner} style={{ float: 'right' }} />
-      <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
-        {rezept.text}
-      </Typography>
+      <Typography style={{ whiteSpace: 'pre-line' }}>{rezept.text}</Typography>
       {rezept.images && rezept.images.length > 0 && (
-        <Grid>
+        <Grid className={classes.images}>
           {rezept.images.map((image) => (
             <GridTile key={image.src} style={{ backgroundImage: `url(${image.src})` }} />
           ))}

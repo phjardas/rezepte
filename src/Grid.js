@@ -37,10 +37,10 @@ const useStyles = makeStyles(({ spacing, breakpoints }) => ({
   },
 }));
 
-export function Grid({ children }) {
+export function Grid({ className, children }) {
   const classes = useStyles();
   return (
-    <div className={classes.grid}>
+    <div className={`${classes.grid} ${className || ''}`}>
       <div className={classes.sizingTile} />
       {children}
     </div>
