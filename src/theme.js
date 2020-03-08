@@ -51,8 +51,8 @@ function useTheme() {
       createMuiTheme({
         palette: {
           type: darkMode ? 'dark' : 'light',
-          primary: teal,
-          secondary: deepOrange,
+          primary: darkMode ? { main: teal[700] } : teal,
+          secondary: darkMode ? { main: deepOrange[700] } : deepOrange,
         },
       }),
     [darkMode]

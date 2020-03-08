@@ -19,12 +19,12 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     '&:hover': {
-      background: palette.grey[100],
+      background: 'rgba(0, 0, 0, .1)',
     },
   },
   dropzoneInnerDrag: {
     outlineStyle: 'solid',
-    background: palette.grey[100],
+    background: 'rgba(0, 0, 0, .1)',
   },
   dropzoneIcon: {
     fontSize: '3rem',

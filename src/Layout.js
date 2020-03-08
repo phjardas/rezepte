@@ -4,6 +4,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import CacheNotification from './CacheNotification';
+import DarkModeButton from './DarkModeButton';
 import UpdateNotification from './UpdateNotification';
 import UserProfileButton from './UserProfileButton';
 
@@ -43,6 +44,7 @@ export default function Layout({ title, back, gutter, children }) {
           )}
           <Typography variant="h6">{title || 'Rezepte'}</Typography>
           <div className={classes.actions}>
+            <DarkModeButton />
             <UserProfileButton />
           </div>
         </Toolbar>

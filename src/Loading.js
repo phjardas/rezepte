@@ -18,7 +18,7 @@ function Spinner({ wait = 300 }) {
   return (
     <Delay wait={wait}>
       <MiniLayout>
-        <CircularProgress color="primary" />
+        <CircularProgress color="secondary" />
       </MiniLayout>
     </Delay>
   );

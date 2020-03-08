@@ -1,8 +1,8 @@
 import { makeStyles, Paper, Typography } from '@material-ui/core';
-import { RestaurantMenu as Logo } from '@material-ui/icons';
 import React from 'react';
+import Logo from './Logo';
 
-const useStyles = makeStyles(({ spacing, palette }) => ({
+const useStyles = makeStyles(({ spacing, palette, zIndex }) => ({
   wrapper: {
     position: 'absolute',
     top: '50%',
@@ -14,10 +14,11 @@ const useStyles = makeStyles(({ spacing, palette }) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: spacing(4),
+    zIndex: zIndex.modal,
   },
   logo: {
     color: palette.primary.main,
-    fontSize: '5rem',
+    fontSize: '7rem',
   },
   main: {
     marginTop: spacing(4),
