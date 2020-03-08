@@ -1,23 +1,14 @@
-import React, { createContext } from 'react';
+import { useCallback } from 'react';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
+import { ulid } from 'ulid';
 import { useAuth } from '../auth';
-import { firestore } from '../firebase';
+import { firestore, storage } from '../firebase';
 import { materialize } from './utils';
 
-const Context = createContext();
-
-export function RezepteProvider({ children }) {
-  const { user } = useAuth();
-  const [docs, loading, error] = useCollection(firestore.collection('cars').where(`users.${user.id}`, '==', true), {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
-
-  const cars = docs && docs.docs.map(materialize);
-  return <Context.Provider value={[cars, loading, error]}>{children}</Context.Provider>;
-}
+const rezepteColl = firestore.collection('rezepte');
 
 export function useRezepte() {
-  const [docs, loading, error] = useCollection(firestore.collection('rezepte').orderBy('title'), {
+  const [docs, loading, error] = useCollection(rezepteColl.orderBy('title'), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
   const rezepte = docs && docs.docs.map(materialize);
@@ -25,19 +16,48 @@ export function useRezepte() {
 }
 
 export function useRezept(id) {
-  const [doc, loading, error] = useDocument(firestore.collection('rezepte').doc(id), {
+  const [doc, loading, error] = useDocument(rezepteColl.doc(id), {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
   return [materialize(doc), loading, error];
 }
 
-export function useCreateRezept() {
+export function useSaveRezept(id) {
   const { user } = useAuth();
 
-  return async (values) => {
-    const rezept = { ...values, owner: user.id };
-    const ref = await firestore.collection('rezepte').add(rezept);
-    console.log('ref:', ref);
-    return ref;
-  };
+  return useCallback(
+    async (values, images) => {
+      const ref = id ? rezepteColl.doc(id) : rezepteColl.doc();
+      const savedImages = await Promise.all(images.map((img) => (img.src ? img : saveImage(img, ref.id))));
+      const rezept = { ...values, id, images: savedImages, owner: user.id };
+      await ref.set(rezept);
+      return ref;
+    },
+    [id, user]
+  );
+}
+
+async function saveImage(file, rezeptId) {
+  const size = await getImageSize(file);
+  const imageId = ulid();
+  const ref = storage
+    .ref()
+    .child('rezepte')
+    .child(rezeptId)
+    .child(imageId);
+  await ref.put(file);
+  const src = await ref.getDownloadURL();
+  return { src, ...size };
+}
+
+function getImageSize(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.src = e.target.result;
+      img.onload = () => resolve({ width: img.width, height: img.height });
+    };
+    reader.readAsDataURL(file);
+  });
 }

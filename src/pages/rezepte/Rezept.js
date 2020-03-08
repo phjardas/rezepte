@@ -1,12 +1,15 @@
-import { Card, CardContent, CardHeader, CardMedia, makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { Edit as EditIcon } from '@material-ui/icons';
 import React from 'react';
 import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 import { useRezept } from '../../data';
 import ErrorMessage from '../../ErrorMessage';
+import Fab from '../../Fab';
+import { Grid, GridTile } from '../../Grid';
 import Layout from '../../Layout';
 import Loading from '../../Loading';
-import UserChip from '../../UserChip';
-import NeuesRezeptFab from './NeuesRezeptFab';
+import { useAuth } from '../../auth';
 
 export default function RezeptPage() {
   const { id } = useParams();
@@ -18,30 +21,30 @@ export default function RezeptPage() {
       {error && <ErrorMessage error={error} />}
       {!loading && !rezept && <ErrorMessage message="Rezept nicht gefunden" />}
       {rezept && <Rezept rezept={rezept} />}
-      <NeuesRezeptFab />
     </Layout>
   );
 }
 
-const useStyles = makeStyles(() => ({
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-}));
-
 function Rezept({ rezept }) {
-  const classes = useStyles();
+  const { user } = useAuth();
 
   return (
-    <Card>
-      <CardHeader title={rezept.title} action={<UserChip id={rezept.owner} />} />
-      {rezept.images && rezept.images.length > 0 && <CardMedia image={rezept.images[0].src} title={rezept.title} className={classes.media} />}
-      <CardContent>
-        <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
-          {rezept.text}
-        </Typography>
-      </CardContent>
-    </Card>
+    <>
+      <Typography style={{ whiteSpace: 'pre-line' }} gutterBottom>
+        {rezept.text}
+      </Typography>
+      {rezept.images && rezept.images.length > 0 && (
+        <Grid>
+          {rezept.images.map((image) => (
+            <GridTile key={image.src} style={{ backgroundImage: `url(${image.src})` }} />
+          ))}
+        </Grid>
+      )}
+      {user.id === rezept.owner && (
+        <Fab color="secondary" component={Link} to={`/rezepte/${rezept.id}/bearbeiten`}>
+          <EditIcon />
+        </Fab>
+      )}
+    </>
   );
 }

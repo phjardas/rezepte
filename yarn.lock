@@ -3404,6 +3404,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"attr-accept@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "attr-accept@npm:2.0.0"
+  checksum: 2/3330315b0b5beddb5890926e2de30cd1cfb79ad9af29e76e9333a072871f2c1d26845116c833b0a66643f92530defb87fb7782bbd9d5d53a7586c4c8dd5a803e
+  languageName: node
+  linkType: hard
+
 "autoprefixer@npm:^9.6.1":
   version: 9.7.4
   resolution: "autoprefixer@npm:9.7.4"
@@ -7051,6 +7058,15 @@ __metadata:
   peerDependencies:
     webpack: ^4.0.0
   checksum: 2/03535f889b56836dc462f20e138ba5ad46893cc079cfb970b3434aa4d4e959a1e52770fa62e87d657f4d7d3dd9207726a464dee19eb82ccdafdc2e5c6a80f92a
+  languageName: node
+  linkType: hard
+
+"file-selector@npm:^0.1.12":
+  version: 0.1.12
+  resolution: "file-selector@npm:0.1.12"
+  dependencies:
+    tslib: ^1.9.0
+  checksum: 2/b1a8287dabc8c239998ecb319c5b4eae156bdeb23130d3b5b6bed349f296d7798d0e5ef43e83dad3550aa2b1d1fd45ab7c5302fe8a9e26196676089de565f4ac
   languageName: node
   linkType: hard
 
@@ -14086,6 +14102,19 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"react-dropzone@npm:^10.2.1":
+  version: 10.2.1
+  resolution: "react-dropzone@npm:10.2.1"
+  dependencies:
+    attr-accept: ^2.0.0
+    file-selector: ^0.1.12
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">= 16.8"
+  checksum: 2/1124d996961da8f2dbfac97d0627d142610a0dc428538da90719375575c2c0ed1e9b83cb14139b63b6f4ad69fb804d5d3d3a1c2249305636ac5cad386dd2891e
+  languageName: node
+  linkType: hard
+
 "react-error-overlay@npm:^6.0.6":
   version: 6.0.6
   resolution: "react-error-overlay@npm:6.0.6"
@@ -14848,12 +14877,14 @@ resolve@1.1.7:
     query-string: ^6.11.1
     react: ^16.13.0
     react-dom: ^16.13.0
+    react-dropzone: ^10.2.1
     react-firebase-hooks: ^2.1.1
     react-helmet-async: ^1.0.4
     react-markdown: ^4.3.1
     react-router: next
     react-router-dom: next
     react-scripts: 3.4.0
+    ulid: ^2.3.0
     yup: ^0.28.3
   languageName: unknown
   linkType: soft
@@ -16579,6 +16610,15 @@ resolve@1.1.7:
   version: 0.0.6
   resolution: "typedarray@npm:0.0.6"
   checksum: 2/c9ef0176aaf32593514c31e5c6edc1db970847aff6e1f0a0570a6ac0cc996335792f394c2fcec59cc76691d22a01888ea073a2f3c6930cfcf7c519addf4e2ad7
+  languageName: node
+  linkType: hard
+
+"ulid@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "ulid@npm:2.3.0"
+  bin:
+    ulid: ./bin/cli.js
+  checksum: 2/7bdf2b7c57e002bf25b64cd3b58c75c91b41830daf08083bbb3b44bf45514d4281dfbc1220ab1c0119cf20d52abd15c1e9e874b3ee3e9474a8537c7826b8be14
   languageName: node
   linkType: hard
 

@@ -44,12 +44,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["query-string", "npm:6.11.1"],
             ["react", "npm:16.13.0"],
             ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"],
+            ["react-dropzone", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:10.2.1"],
             ["react-firebase-hooks", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:2.1.1"],
             ["react-helmet-async", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:1.0.4"],
             ["react-markdown", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.3.1"],
             ["react-router", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:6.0.0-alpha.2"],
             ["react-router-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:6.0.0-alpha.2"],
             ["react-scripts", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:3.4.0"],
+            ["ulid", "npm:2.3.0"],
             ["yup", "npm:0.28.3"]
           ],
           "linkType": "SOFT",
@@ -4755,6 +4757,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["attr-accept", [
+        ["npm:2.0.0", {
+          "packageLocation": "./.yarn/cache/attr-accept-npm-2.0.0-0a4fd7bb96-2.zip/node_modules/attr-accept/",
+          "packageDependencies": [
+            ["attr-accept", "npm:2.0.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["autoprefixer", [
         ["npm:9.7.4", {
           "packageLocation": "./.yarn/cache/autoprefixer-npm-9.7.4-b018f78771-2.zip/node_modules/autoprefixer/",
@@ -8873,6 +8884,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "packagePeers": [
             "webpack"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["file-selector", [
+        ["npm:0.1.12", {
+          "packageLocation": "./.yarn/cache/file-selector-npm-0.1.12-6b84596589-2.zip/node_modules/file-selector/",
+          "packageDependencies": [
+            ["file-selector", "npm:0.1.12"],
+            ["tslib", "npm:1.10.0"]
           ],
           "linkType": "HARD",
         }]
@@ -16594,6 +16615,22 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["react-dropzone", [
+        ["virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:10.2.1", {
+          "packageLocation": "./.yarn/$$virtual/react-dropzone-virtual-6780eb6466/0/cache/react-dropzone-npm-10.2.1-a5d02a75e0-2.zip/node_modules/react-dropzone/",
+          "packageDependencies": [
+            ["react-dropzone", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:10.2.1"],
+            ["attr-accept", "npm:2.0.0"],
+            ["file-selector", "npm:0.1.12"],
+            ["prop-types", "npm:15.7.2"],
+            ["react", "npm:16.13.0"]
+          ],
+          "packagePeers": [
+            "react"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["react-error-overlay", [
         ["npm:6.0.6", {
           "packageLocation": "./.yarn/cache/react-error-overlay-npm-6.0.6-c37a5251d5-2.zip/node_modules/react-error-overlay/",
@@ -17442,12 +17479,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["query-string", "npm:6.11.1"],
             ["react", "npm:16.13.0"],
             ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"],
+            ["react-dropzone", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:10.2.1"],
             ["react-firebase-hooks", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:2.1.1"],
             ["react-helmet-async", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:1.0.4"],
             ["react-markdown", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.3.1"],
             ["react-router", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:6.0.0-alpha.2"],
             ["react-router-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:6.0.0-alpha.2"],
             ["react-scripts", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:3.4.0"],
+            ["ulid", "npm:2.3.0"],
             ["yup", "npm:0.28.3"]
           ],
           "linkType": "SOFT",
@@ -19341,6 +19380,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/typedarray-npm-0.0.6-37638b2241-2.zip/node_modules/typedarray/",
           "packageDependencies": [
             ["typedarray", "npm:0.0.6"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["ulid", [
+        ["npm:2.3.0", {
+          "packageLocation": "./.yarn/cache/ulid-npm-2.3.0-2dd679bbd3-2.zip/node_modules/ulid/",
+          "packageDependencies": [
+            ["ulid", "npm:2.3.0"]
           ],
           "linkType": "HARD",
         }]
