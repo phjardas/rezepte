@@ -7,7 +7,7 @@ import SignIn from '../SignIn';
 export default function SignInPage() {
   const navigate = useNavigate();
   const onSuccess = useCallback(() => {
-    const from = qs.parse(window.location.search) || '/';
+    const from = qs.parse(window.location.search).from || '/';
     navigate(from);
   }, [navigate]);
 
