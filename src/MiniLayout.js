@@ -4,7 +4,7 @@ import Logo from './Logo';
 
 const useStyles = makeStyles(({ spacing, palette, zIndex }) => ({
   wrapper: {
-    position: 'absolute',
+    position: 'fixed',
     top: '50%',
     left: '50%',
     width: 300,
