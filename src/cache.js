@@ -7,7 +7,6 @@ export function CacheProvider({ children }) {
   const [state, setState] = useState({ cached: false, updated: false });
 
   useEffect(() => {
-    console.log('registering service worker');
     registerServiceWorker({
       onSuccess: () => setState((s) => ({ ...s, cached: true })),
       onUpdate: (registration) => {
@@ -15,9 +14,7 @@ export function CacheProvider({ children }) {
 
         if (waitingServiceWorker) {
           waitingServiceWorker.addEventListener('statechange', (event) => {
-            if (event.target.state === 'activated') {
-              setState((s) => ({ ...s, updated: true }));
-            }
+            if (event.target.state === 'activated') setState((s) => ({ ...s, updated: true }));
           });
           waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
         }

@@ -25,12 +25,10 @@ export function register(config) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
       // serve assets; see https://github.com/facebook/create-react-app/issues/2374
-      console.log('[sw] skipping service worker registration because origin does not match');
       return;
     }
 
     const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-    console.log('[sw] loading service worker from', swUrl);
 
     if (isLocalhost) {
       // This is running on localhost. Let's check if a service worker still exists or not.
@@ -46,13 +44,10 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
-      console.log('[sw] service worker registered:', registration);
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
-        console.log('[sw] installing worker:', installingWorker);
         if (installingWorker == null) return;
         installingWorker.onstatechange = () => {
-          console.log('[sw] state change:', installingWorker.state);
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               if (config && config.onUpdate) config.onUpdate(registration);

@@ -11,10 +11,13 @@ const useStyles = makeStyles(({ spacing }) => ({
   },
   search: {
     marginRight: spacing(2),
+    marginBottom: spacing(1),
     flex: 1,
+    minWidth: '10rem',
   },
   chip: {
     marginRight: spacing(1),
+    marginBottom: spacing(1),
   },
 }));
 
@@ -33,6 +36,7 @@ export default function RezepteFilter({ filter, setFilter, className, ...props }
         value={filter.search || ''}
         onChange={(e) => setSearch(e.currentTarget.value)}
         variant="outlined"
+        size="small"
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
