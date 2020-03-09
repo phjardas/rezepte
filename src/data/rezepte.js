@@ -1,17 +1,24 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
 import { useAuth } from '../auth';
-import { firestore, storage } from '../firebase';
+import { firestore, storage, Firebase } from '../firebase';
 import { materialize } from './utils';
 
 const rezepteColl = firestore.collection('rezepte');
 
-export function useRezepte() {
-  const [docs, loading, error] = useCollection(rezepteColl.orderBy('title'), {
+export function useRezepte({ filter = {} } = {}) {
+  const query = useMemo(() => {
+    let q = rezepteColl;
+    if (filter.kategorien) filter.kategorien.forEach((kat) => (q = q.where(`kategorien.${kat}`, '==', true)));
+    return q;
+  }, [filter]);
+
+  const [docs, loading, error] = useCollection(query, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-  const rezepte = docs && docs.docs.map(materialize);
+
+  const rezepte = useMemo(() => docs && docs.docs.map(materialize), [docs]);
   return [rezepte, loading, error];
 }
 
@@ -29,7 +36,7 @@ export function useSaveRezept(id) {
     async (values, images) => {
       const ref = id ? rezepteColl.doc(id) : rezepteColl.doc();
       const savedImages = await Promise.all(images.map((img) => (img.src ? img : saveImage(img, ref.id))));
-      const rezept = { ...values, images: savedImages, owner: user.id };
+      const rezept = { ...values, images: savedImages, owner: user.id, updatedAt: Firebase.firestore.FieldValue.serverTimestamp() };
       await ref.set(rezept);
       return ref;
     },

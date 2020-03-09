@@ -2,6 +2,7 @@ import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider } from './auth';
 import { CacheProvider } from './cache';
+import { KategorienProvider } from './data';
 import { ThemeProvider } from './theme';
 
 export default function Providers({ children }) {
@@ -9,7 +10,9 @@ export default function Providers({ children }) {
     <CacheProvider>
       <ThemeProvider>
         <HelmetProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <KategorienProvider>{children}</KategorienProvider>
+          </AuthProvider>
         </HelmetProvider>
       </ThemeProvider>
     </CacheProvider>

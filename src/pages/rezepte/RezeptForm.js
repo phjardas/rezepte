@@ -5,10 +5,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { object, string } from 'yup';
 import { useSaveRezept } from '../../data';
 import Images from './Images';
+import Kategorien from './Kategorien';
 
 const defaultValues = {
   title: '',
   text: '',
+  kategorieIds: [],
 };
 
 const schema = object({
@@ -31,13 +33,24 @@ export default function RezeptForm({ rezept }) {
   const classes = useStyles();
   const saveRezept = useSaveRezept(rezept ? rezept.id : undefined);
   const navigate = useNavigate();
-  const initialValues = useMemo(() => ({ ...defaultValues, ...rezept }), [rezept]);
+  const initialValues = useMemo(
+    () => ({
+      ...defaultValues,
+      ...rezept,
+      kategorieIds: rezept && rezept.kategorien ? Object.keys(rezept.kategorien) : [],
+    }),
+    [rezept]
+  );
   const [images, setImages] = useState((rezept && rezept.images) || []);
 
   const onSubmit = useCallback(
-    async (values, { setSubmitting, setStatus }) => {
+    async ({ kategorieIds, ...values }, { setSubmitting, setStatus }) => {
       try {
-        const res = await saveRezept(values, images);
+        const data = {
+          ...values,
+          kategorien: kategorieIds.reduce((a, b) => ({ ...a, [b]: true }), {}),
+        };
+        const res = await saveRezept(data, images);
         navigate(`/rezepte/${res.id}`);
       } catch (error) {
         setStatus(error);
@@ -49,7 +62,7 @@ export default function RezeptForm({ rezept }) {
 
   return (
     <Formik initialValues={initialValues} validationSchema={schema} onSubmit={onSubmit}>
-      {({ dirty, isValid, isSubmitting, status }) => (
+      {({ dirty, isValid, isSubmitting, status, values }) => (
         <Form>
           {status && (
             <Typography color="error" gutterBottom>
@@ -86,6 +99,7 @@ export default function RezeptForm({ rezept }) {
               />
             )}
           </Field>
+          <Kategorien values={values.kategorieIds} />
           <Images images={images} setImages={setImages} />
           <div className={classes.actions}>
             <Button

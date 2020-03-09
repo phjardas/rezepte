@@ -37,6 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@material-ui/core", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.9.5"],
             ["@material-ui/icons", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.9.1"],
+            ["@material-ui/lab", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.0.0-alpha.45"],
             ["clsx", "npm:1.1.0"],
             ["firebase", "npm:7.10.0"],
             ["firebase-tools", "npm:7.14.0"],
@@ -3106,6 +3107,30 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react", null],
             ["react", "npm:16.13.0"],
             ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"]
+          ],
+          "packagePeers": [
+            "@material-ui/core",
+            "@types/react",
+            "react",
+            "react-dom"
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@material-ui/lab", [
+        ["virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.0.0-alpha.45", {
+          "packageLocation": "./.yarn/$$virtual/@material-ui-lab-virtual-bf5d27e482/0/cache/@material-ui-lab-npm-4.0.0-alpha.45-8b7b1b82c0-2.zip/node_modules/@material-ui/lab/",
+          "packageDependencies": [
+            ["@material-ui/lab", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.0.0-alpha.45"],
+            ["@babel/runtime", "npm:7.8.7"],
+            ["@material-ui/core", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.9.5"],
+            ["@material-ui/utils", "virtual:40c7f11560003672b0d132f75782a9d245caf0d419941da06f5f1161a5ef861312bea603cfc59cb95c76ff1f072a0606bc49c3ae50dec412eaf9f1af910ae10d#npm:4.7.1"],
+            ["@types/react", null],
+            ["clsx", "npm:1.1.0"],
+            ["prop-types", "npm:15.7.2"],
+            ["react", "npm:16.13.0"],
+            ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"],
+            ["react-is", "npm:16.13.0"]
           ],
           "packagePeers": [
             "@material-ui/core",
@@ -17472,6 +17497,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["rezepte", "workspace:."],
             ["@material-ui/core", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.9.5"],
             ["@material-ui/icons", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.9.1"],
+            ["@material-ui/lab", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:4.0.0-alpha.45"],
             ["clsx", "npm:1.1.0"],
             ["firebase", "npm:7.10.0"],
             ["firebase-tools", "npm:7.14.0"],

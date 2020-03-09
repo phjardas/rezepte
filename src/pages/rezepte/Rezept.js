@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from '@material-ui/core';
+import { Card, CardContent, makeStyles, Typography } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import React from 'react';
 import { useParams } from 'react-router';
@@ -8,6 +8,7 @@ import { useRezept } from '../../data';
 import ErrorMessage from '../../ErrorMessage';
 import Fab from '../../Fab';
 import { Grid, GridTile } from '../../Grid';
+import KategorieChips from '../../KategorieChips';
 import Layout from '../../Layout';
 import Loading from '../../Loading';
 import UserChip from '../../UserChip';
@@ -30,6 +31,11 @@ const useStyles = makeStyles(({ spacing }) => ({
   images: {
     marginTop: spacing(2),
   },
+  meta: {
+    float: 'right',
+    marginLeft: spacing(2),
+    marginBottom: spacing(2),
+  },
 }));
 
 function Rezept({ rezept }) {
@@ -38,7 +44,19 @@ function Rezept({ rezept }) {
 
   return (
     <>
-      <UserChip id={rezept.owner} style={{ float: 'right' }} />
+      <Card className={classes.meta}>
+        <CardContent>
+          <Typography gutterBottom component="div">
+            <UserChip id={rezept.owner} />
+          </Typography>
+          {rezept.updatedAt && (
+            <Typography variant="caption" component="p" gutterBottom>
+              Aktualisiert: {new Date(rezept.updatedAt.seconds * 1000).toLocaleString()}
+            </Typography>
+          )}
+          {rezept.kategorien && <KategorieChips kategorieIds={Object.keys(rezept.kategorien)} link />}
+        </CardContent>
+      </Card>
       <Typography style={{ whiteSpace: 'pre-line' }}>{rezept.text}</Typography>
       {rezept.images && rezept.images.length > 0 && (
         <Grid className={classes.images}>

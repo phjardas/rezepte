@@ -1,11 +1,13 @@
 import { CircularProgress, IconButton, makeStyles, Typography } from '@material-ui/core';
-import { Delete as DeleteIcon, AddPhotoAlternate as AddImageIcon } from '@material-ui/icons';
+import { AddPhotoAlternate as AddImageIcon, Delete as DeleteIcon } from '@material-ui/icons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { Grid, GridTile } from '../../Grid';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  root: {},
+  root: {
+    marginTop: spacing(2),
+  },
   dropzone: {
     display: 'flex',
   },
