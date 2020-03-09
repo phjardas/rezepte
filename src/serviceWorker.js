@@ -29,19 +29,16 @@ export function register(config) {
       return;
     }
 
-    console.log('[sw] adding event listener');
-    window.addEventListener('load', () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
-      console.log('[sw] loading service worker from', swUrl);
+    const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+    console.log('[sw] loading service worker from', swUrl);
 
-      if (isLocalhost) {
-        // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
-      } else {
-        // Is not localhost. Just register service worker
-        registerValidSW(swUrl, config);
-      }
-    });
+    if (isLocalhost) {
+      // This is running on localhost. Let's check if a service worker still exists or not.
+      checkValidServiceWorker(swUrl, config);
+    } else {
+      // Is not localhost. Just register service worker
+      registerValidSW(swUrl, config);
+    }
   }
 }
 
