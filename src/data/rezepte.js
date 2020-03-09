@@ -52,7 +52,7 @@ async function saveImage(file, rezeptId) {
     .child('rezepte')
     .child(rezeptId)
     .child(imageId);
-  await ref.put(file);
+  await ref.put(file, { cacheControl: 'max-age=31536000' });
   const src = await ref.getDownloadURL();
   return { src, ...size };
 }
