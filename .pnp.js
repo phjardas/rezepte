@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:7.10.0"],
             ["firebase-tools", "npm:7.14.0"],
             ["formik", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:2.1.4"],
+            ["fuse.js", "npm:3.6.1"],
             ["query-string", "npm:6.11.1"],
             ["react", "npm:16.13.0"],
             ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"],
@@ -9492,6 +9493,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["fuse.js", [
+        ["npm:3.6.1", {
+          "packageLocation": "./.yarn/cache/fuse.js-npm-3.6.1-d9c14471d8-2.zip/node_modules/fuse.js/",
+          "packageDependencies": [
+            ["fuse.js", "npm:3.6.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["gauge", [
         ["npm:2.7.4", {
           "packageLocation": "./.yarn/cache/gauge-npm-2.7.4-2189a73529-2.zip/node_modules/gauge/",
@@ -17502,6 +17512,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["firebase", "npm:7.10.0"],
             ["firebase-tools", "npm:7.14.0"],
             ["formik", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:2.1.4"],
+            ["fuse.js", "npm:3.6.1"],
             ["query-string", "npm:6.11.1"],
             ["react", "npm:16.13.0"],
             ["react-dom", "virtual:97ac90390d32cdf20a068ab2eb31c01ee61612281e339a1f3ec49a84e1912c5846746071b5fd7f7db7f5d275d5775a1353c14bc28cee3c403a9ff63d2f0e28d4#npm:16.13.0"],

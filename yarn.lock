@@ -7647,6 +7647,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"fuse.js@npm:^3.6.1":
+  version: 3.6.1
+  resolution: "fuse.js@npm:3.6.1"
+  checksum: 2/2eebc6f8f74abdbf65557f2fe81679ddfb20890482343892bfef43742ad3b7146cc9b89f5b12a40b35ecdfb1d8401848d567fc727261fa90fa87e899e8ec6112
+  languageName: node
+  linkType: hard
+
 "gauge@npm:~2.7.3":
   version: 2.7.4
   resolution: "gauge@npm:2.7.4"
@@ -14896,6 +14903,7 @@ resolve@1.1.7:
     firebase: ^7.8.0
     firebase-tools: ^7.12.1
     formik: ^2.1.4
+    fuse.js: ^3.6.1
     query-string: ^6.11.1
     react: ^16.13.0
     react-dom: ^16.13.0

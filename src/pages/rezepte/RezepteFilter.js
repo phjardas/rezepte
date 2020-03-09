@@ -1,4 +1,5 @@
-import { Chip, makeStyles } from '@material-ui/core';
+import { Chip, InputAdornment, makeStyles, TextField } from '@material-ui/core';
+import { Search as SearchIcon } from '@material-ui/icons';
 import React, { useCallback, useMemo } from 'react';
 import { useKategorien } from '../../data';
 
@@ -8,6 +9,10 @@ const useStyles = makeStyles(({ spacing }) => ({
     alignItems: 'center',
     flexWrap: 'wrap',
   },
+  search: {
+    marginRight: spacing(2),
+    flex: 1,
+  },
   chip: {
     marginRight: spacing(1),
   },
@@ -15,14 +20,29 @@ const useStyles = makeStyles(({ spacing }) => ({
 
 export default function RezepteFilter({ filter, setFilter, className, ...props }) {
   const classes = useStyles();
+  const setSearch = useCallback((search) => setFilter((f) => ({ ...f, search })), [setFilter]);
   const kategorien = useKategorien();
-  const sorted = useMemo(() => [...kategorien].sort((a, b) => a.label.localeCompare(b.label)), [kategorien]);
-  const onAdd = useCallback((id) => () => setFilter((f) => ({ ...f, kategorien: [...f.kategorien, id] })), [setFilter]);
-  const onDelete = useCallback((id) => () => setFilter((f) => ({ ...f, kategorien: f.kategorien.filter((k) => k !== id) })), [setFilter]);
+  const sortedKategorien = useMemo(() => [...kategorien].sort((a, b) => a.label.localeCompare(b.label)), [kategorien]);
+  const addKategorie = useCallback((id) => () => setFilter((f) => ({ ...f, kategorien: [...f.kategorien, id] })), [setFilter]);
+  const deleteKategorie = useCallback((id) => () => setFilter((f) => ({ ...f, kategorien: f.kategorien.filter((k) => k !== id) })), [setFilter]);
 
   return (
     <div className={`${classes.root} ${className || ''}`} {...props}>
-      {sorted.map((kategorie) => {
+      <TextField
+        type="search"
+        value={filter.search || ''}
+        onChange={(e) => setSearch(e.currentTarget.value)}
+        variant="outlined"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        className={classes.search}
+      />
+      {sortedKategorien.map((kategorie) => {
         const active = filter.kategorien.includes(kategorie.id);
         return (
           <Chip
@@ -30,8 +50,8 @@ export default function RezepteFilter({ filter, setFilter, className, ...props }
             label={kategorie.label}
             className={classes.chip}
             color={active ? 'secondary' : 'default'}
-            onClick={active ? onDelete(kategorie.id) : onAdd(kategorie.id)}
-            onDelete={active ? onDelete(kategorie.id) : undefined}
+            onClick={active ? deleteKategorie(kategorie.id) : addKategorie(kategorie.id)}
+            onDelete={active ? deleteKategorie(kategorie.id) : undefined}
           />
         );
       })}

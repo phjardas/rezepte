@@ -1,7 +1,7 @@
 import { Button, GridListTileBar, makeStyles } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import qs from 'query-string';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useKategorien, useRezepte } from '../../data';
 import ErrorMessage from '../../ErrorMessage';
@@ -23,21 +23,17 @@ function useFilter() {
   const filter = useMemo(() => {
     const search = qs.parse(location.search);
     return {
+      search: search.search,
       kategorien: search.kategorien ? search.kategorien.split(',') : [],
     };
   }, [location.search]);
-
-  useEffect(() => {
-    const listener = (...args) => console.log('pop:', args);
-    window.addEventListener('popstate', listener, true);
-    return () => window.removeEventListener('popstate', listener);
-  }, []);
 
   const setFilter = useCallback(
     (updater) => {
       const nextFilter = typeof updater === 'function' ? updater(filter) : updater;
       navigate(
         `${location.pathname}?${qs.stringify({
+          search: nextFilter.search || undefined,
           kategorien: nextFilter.kategorien && nextFilter.kategorien.length ? nextFilter.kategorien.join(',') : undefined,
         })}`
       );

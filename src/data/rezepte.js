@@ -1,32 +1,46 @@
-import { useCallback, useMemo } from 'react';
-import { useCollection, useDocument } from 'react-firebase-hooks/firestore';
+import React, { createContext, useCallback, useContext, useMemo } from 'react';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import { ulid } from 'ulid';
 import { useAuth } from '../auth';
-import { firestore, storage, Firebase } from '../firebase';
+import { Firebase, firestore, storage } from '../firebase';
+import { useSearch } from './search';
 import { materialize } from './utils';
 
 const rezepteColl = firestore.collection('rezepte');
 
-export function useRezepte({ filter = {} } = {}) {
-  const query = useMemo(() => {
-    let q = rezepteColl;
-    if (filter.kategorien) filter.kategorien.forEach((kat) => (q = q.where(`kategorien.${kat}`, '==', true)));
-    return q;
-  }, [filter]);
+const Context = createContext();
 
-  const [docs, loading, error] = useCollection(query, {
+export function RezepteProvider({ children }) {
+  const [docs, loading, error] = useCollection(rezepteColl, {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
-
   const rezepte = useMemo(() => docs && docs.docs.map(materialize), [docs]);
+  return <Context.Provider value={[rezepte, loading, error]}>{children}</Context.Provider>;
+}
+
+export function useRezepte({ filter = {} } = {}) {
+  const filterFn = useRezepteFilter(filter);
+  const [docs, loading, error] = useContext(Context);
+  const rezepte = useMemo(() => docs && docs.filter(filterFn), [docs, filterFn]);
   return [rezepte, loading, error];
 }
 
+function useRezepteFilter({ kategorien, search }) {
+  const index = useSearch();
+  const ids = useMemo(() => search && index && index.search(search), [search, index]);
+
+  return useMemo(() => {
+    return (rezept) => {
+      if (ids && !ids.includes(rezept.id)) return false;
+      if (kategorien && kategorien.length && !kategorien.some((kat) => rezept.kategorien && rezept.kategorien[kat])) return false;
+      return true;
+    };
+  }, [kategorien, ids]);
+}
+
 export function useRezept(id) {
-  const [doc, loading, error] = useDocument(rezepteColl.doc(id), {
-    snapshotListenOptions: { includeMetadataChanges: true },
-  });
-  return [materialize(doc), loading, error];
+  const [rezepte, loading, error] = useRezepte();
+  return [rezepte && rezepte.find((rezept) => rezept.id === id), loading, error];
 }
 
 export function useSaveRezept(id) {
