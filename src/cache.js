@@ -7,6 +7,7 @@ export function CacheProvider({ children }) {
   const [state, setState] = useState({ cached: false, updated: false });
 
   useEffect(() => {
+    console.log('registering service worker');
     registerServiceWorker({
       onSuccess: () => setState((s) => ({ ...s, cached: true })),
       onUpdate: (registration) => {

@@ -21,6 +21,7 @@ export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    console.log('[sw] public url', pulicUrl.origin, 'vs location', window.location.origin);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -30,6 +31,7 @@ export function register(config) {
 
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      console.log('[sw] loading service worker from', swUrl);
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
@@ -46,10 +48,13 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      console.log('[sw] service worker registered:', registration);
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
+        console.log('[sw] installing worker:', installingWorker);
         if (installingWorker == null) return;
         installingWorker.onstatechange = () => {
+          console.log('[sw] state change:', installingWorker.state);
           if (installingWorker.state === 'installed') {
             if (navigator.serviceWorker.controller) {
               if (config && config.onUpdate) config.onUpdate(registration);
