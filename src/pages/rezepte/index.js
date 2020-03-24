@@ -1,6 +1,7 @@
 import React, { lazy } from 'react';
-import { Routes } from 'react-router-dom';
-import ProtectedRoute from '../../ProtectedRoute';
+import { Route, Routes } from 'react-router-dom';
+import { KategorienProvider, RezepteProvider } from '../../data';
+import { SearchProvider } from '../../data/search';
 
 const Rezept = lazy(() => import('./Rezept'));
 const Rezepte = lazy(() => import('./Rezepte'));
@@ -9,11 +10,17 @@ const RezeptBearbeiten = lazy(() => import('./RezeptBearbeiten'));
 
 export default function Rezepts() {
   return (
-    <Routes>
-      <ProtectedRoute path="/" element={<Rezepte />} />
-      <ProtectedRoute path="/_neu" element={<NeuesRezept />} />
-      <ProtectedRoute path="/:id" element={<Rezept />} />
-      <ProtectedRoute path="/:id/bearbeiten" element={<RezeptBearbeiten />} />
-    </Routes>
+    <KategorienProvider>
+      <RezepteProvider>
+        <SearchProvider>
+          <Routes>
+            <Route path="/" element={<Rezepte />} />
+            <Route path="/_neu" element={<NeuesRezept />} />
+            <Route path="/:id" element={<Rezept />} />
+            <Route path="/:id/bearbeiten" element={<RezeptBearbeiten />} />
+          </Routes>
+        </SearchProvider>
+      </RezepteProvider>
+    </KategorienProvider>
   );
 }

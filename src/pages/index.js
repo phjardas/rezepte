@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Loading from '../Loading';
+import ProtectedRoute from '../ProtectedRoute';
 import Redirect from '../Redirect';
 import NotFound from './404';
 
@@ -13,7 +14,7 @@ export default function Pages() {
       <BrowserRouter>
         <Routes>
           <Route path="/signin" element={<SignIn />} />
-          <Route path="/rezepte/*" element={<Rezepte />} />
+          <ProtectedRoute path="/rezepte/*" element={<Rezepte />} />
           <Route path="/" element={<Redirect to="/rezepte" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
