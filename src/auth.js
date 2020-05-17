@@ -11,7 +11,7 @@ const AuthContext = createContext({});
 export function AuthProvider({ children }) {
   const [user, loading, error] = useAuthState(auth);
 
-  if (error) return <ErrorMessage error={error} layout />;
+  if (error) throw error;
   if (loading) return <Loading layout />;
 
   return user ? <AuthenticatedProvider user={user}>{children}</AuthenticatedProvider> : children;
@@ -24,23 +24,27 @@ function AuthenticatedProvider({ user: fbUser, children }) {
 
   useEffect(() => {
     async function initialize() {
-      if (!fbLoading && !fbError && !initialized) {
-        setState((s) => ({ ...s, initialized: true }));
+      try {
+        if (!fbLoading && !fbError && !initialized) {
+          setState((s) => ({ ...s, initialized: true }));
 
-        if (data.exists) {
-          await userDoc.update({
-            lastLogin: Firebase.firestore.FieldValue.serverTimestamp(),
-            appVersion: version,
-          });
-        } else {
-          await userDoc.set({
-            label: fbUser.displayName,
-            photoURL: fbUser.photoURL,
-            createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
-            lastLogin: Firebase.firestore.FieldValue.serverTimestamp(),
-            appVersion: version,
-          });
+          if (data.exists) {
+            await userDoc.update({
+              lastLogin: Firebase.firestore.FieldValue.serverTimestamp(),
+              appVersion: version,
+            });
+          } else {
+            await userDoc.set({
+              label: fbUser.displayName,
+              photoURL: fbUser.photoURL,
+              createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
+              lastLogin: Firebase.firestore.FieldValue.serverTimestamp(),
+              appVersion: version,
+            });
+          }
         }
+      } catch (error) {
+        setState((s) => ({ ...s, error }));
       }
     }
 

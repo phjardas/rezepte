@@ -5,7 +5,7 @@ const useStyles = makeStyles(({ breakpoints, spacing, zIndex }) => ({
   fab: {
     position: 'fixed',
     bottom: spacing(3),
-    right: spacing(3),
+    right: spacing(4),
     zIndex: zIndex.speedDial,
     [breakpoints.up('lg')]: {
       position: 'absolute',

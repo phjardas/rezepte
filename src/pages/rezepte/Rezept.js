@@ -32,9 +32,7 @@ const useStyles = makeStyles(({ spacing }) => ({
     marginTop: spacing(2),
   },
   meta: {
-    float: 'right',
-    marginLeft: spacing(2),
-    marginBottom: spacing(2),
+    marginTop: spacing(2),
   },
 }));
 
@@ -44,10 +42,18 @@ function Rezept({ rezept }) {
 
   return (
     <>
+      <Typography style={{ whiteSpace: 'pre-line' }}>{rezept.text}</Typography>
+      {rezept.images && rezept.images.length > 0 && (
+        <Grid className={classes.images}>
+          {rezept.images.map((image) => (
+            <GridTile key={image.src} style={{ backgroundImage: `url(${image.src})` }} />
+          ))}
+        </Grid>
+      )}
       <Card className={classes.meta}>
         <CardContent>
           <Typography gutterBottom component="div">
-            <UserChip id={rezept.owner} />
+            von <UserChip id={rezept.owner} />
           </Typography>
           {rezept.updatedAt && (
             <Typography variant="caption" component="p" gutterBottom>
@@ -57,14 +63,6 @@ function Rezept({ rezept }) {
           {rezept.kategorien && <KategorieChips kategorieIds={Object.keys(rezept.kategorien)} link />}
         </CardContent>
       </Card>
-      <Typography style={{ whiteSpace: 'pre-line' }}>{rezept.text}</Typography>
-      {rezept.images && rezept.images.length > 0 && (
-        <Grid className={classes.images}>
-          {rezept.images.map((image) => (
-            <GridTile key={image.src} style={{ backgroundImage: `url(${image.src})` }} />
-          ))}
-        </Grid>
-      )}
       {user.id === rezept.owner && (
         <Fab color="secondary" component={Link} to={`/rezepte/${rezept.id}/bearbeiten`}>
           <EditIcon />

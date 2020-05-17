@@ -1,8 +1,8 @@
 import { createMuiTheme, CssBaseline, makeStyles, ThemeProvider as MuiThemeProvider, useMediaQuery } from '@material-ui/core';
-import { teal, deepOrange } from '@material-ui/core/colors';
-import React, { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import { deepOrange, teal } from '@material-ui/core/colors';
+import React, { useMemo } from 'react';
 
-function ThemeWrapper({ children }) {
+export function ThemeProvider({ children }) {
   const theme = useTheme();
 
   return (
@@ -26,25 +26,8 @@ function Wrapper({ children }) {
   return children;
 }
 
-const localStorageKey = 'drivr:dark';
-const DarkModeContext = createContext();
-
-export function DarkModeProvider({ children }) {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
-  const [darkMode, setDarkMode] = useState((localStorage.getItem(localStorageKey) || JSON.stringify(prefersDarkMode)) === 'true');
-  const updateDarkMode = useCallback(
-    (active) => {
-      setDarkMode(active);
-      localStorage.setItem(localStorageKey, JSON.stringify(active));
-    },
-    [setDarkMode]
-  );
-
-  return <DarkModeContext.Provider value={{ darkMode, setDarkMode: updateDarkMode }}>{children}</DarkModeContext.Provider>;
-}
-
 function useTheme() {
-  const { darkMode } = useDarkMode();
+  const darkMode = useMediaQuery('(prefers-color-scheme: dark)');
 
   const theme = useMemo(
     () =>
@@ -63,18 +46,4 @@ function useTheme() {
   }
 
   return theme;
-}
-
-export function useDarkMode() {
-  const context = useContext(DarkModeContext);
-  if (!context) throw new Error('useDarkMode() used without a context');
-  return context;
-}
-
-export function ThemeProvider({ children }) {
-  return (
-    <DarkModeProvider>
-      <ThemeWrapper>{children}</ThemeWrapper>
-    </DarkModeProvider>
-  );
 }
