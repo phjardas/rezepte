@@ -1,1 +1,1 @@
-export const version = process.env.REACT_APP_GIT_SHA || 'dev';
+export const version = import.meta.env.VITE_APP_GIT_SHA || "dev";

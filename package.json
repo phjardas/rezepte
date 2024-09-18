@@ -1,35 +1,42 @@
 {
   "name": "rezepte",
   "private": true,
+  "type": "module",
   "homepage": "https://rezepte.jardas.de",
   "scripts": {
-    "start": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts start",
-    "build": "REACT_APP_GIT_SHA=$(git rev-parse --short HEAD) react-scripts build",
+    "start": "VITE_APP_GIT_SHA=$(git rev-parse --short HEAD) vite",
+    "build": "VITE_APP_GIT_SHA=$(git rev-parse --short HEAD) vite build",
     "deploy": "firebase deploy"
   },
   "dependencies": {
-    "@material-ui/core": "^4.9.1",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.45",
-    "clsx": "^1.0.4",
-    "firebase": "^7.8.0",
-    "formik": "^2.1.4",
-    "fuse.js": "^3.6.1",
-    "query-string": "^6.11.1",
-    "react": "^16.13.0",
-    "react-dom": "^16.13.0",
-    "react-dropzone": "^10.2.1",
-    "react-firebase-hooks": "^2.1.1",
-    "react-helmet-async": "^1.0.4",
-    "react-markdown": "^4.3.1",
-    "react-router": "next",
-    "react-router-dom": "next",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.0",
+    "@mui/lab": "^6.0.0-beta.9",
+    "@mui/material": "^6.1.0",
+    "firebase": "^10.13.1",
+    "formik": "^2.4.6",
+    "fuse.js": "^7.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-dropzone": "^14.2.3",
+    "react-error-boundary": "^4.0.13",
+    "react-firebase-hooks": "^5.1.1",
+    "react-helmet-async": "^2.0.5",
+    "react-router": "^6.26.2",
+    "react-router-dom": "^6.26.2",
     "ulid": "^2.3.0",
-    "yup": "^0.28.3"
+    "yup": "^1.4.0"
   },
   "devDependencies": {
-    "firebase-tools": "^7.12.1",
-    "react-scripts": "3.4.0"
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "firebase-tools": "^13.17.0",
+    "prettier": "^3.3.3",
+    "vite": "^5.2.0",
+    "vite-plugin-pwa": "^0.20.1"
   },
   "eslintConfig": {
     "extends": "react-app"
