@@ -1,11 +1,19 @@
 import {
   collection,
+  deleteDoc,
   doc,
   getFirestore,
   serverTimestamp,
   setDoc,
 } from "firebase/firestore";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import {
+  deleteObject,
+  getDownloadURL,
+  getStorage,
+  listAll,
+  ref,
+  uploadBytes,
+} from "firebase/storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { ulid } from "ulid";
@@ -36,7 +44,7 @@ export function useRezepte({ filter = {} } = {}) {
   const [docs, loading, error] = useContext(Context);
   const rezepte = useMemo(
     () => docs && docs.filter(filterFn),
-    [docs, filterFn]
+    [docs, filterFn],
   );
   return [rezepte, loading, error];
 }
@@ -45,7 +53,7 @@ function useRezepteFilter({ kategorien, search }) {
   const index = useSearch();
   const ids = useMemo(
     () => search && index && index.search(search),
-    [search, index]
+    [search, index],
   );
 
   return useMemo(() => {
@@ -78,7 +86,7 @@ export function useSaveRezept(id) {
     async (values, images) => {
       const rezeptRef = id ? doc(rezepteColl, id) : doc(rezepteColl);
       const savedImages = await Promise.all(
-        images.map((img) => (img.src ? img : saveImage(img, rezeptRef.id)))
+        images.map((img) => (img.src ? img : saveImage(img, rezeptRef.id))),
       );
       const rezept = {
         ...values,
@@ -89,8 +97,19 @@ export function useSaveRezept(id) {
       await setDoc(rezeptRef, rezept);
       return rezeptRef;
     },
-    [id, user]
+    [id, user],
   );
+}
+
+export async function deleteRezept(id) {
+  await deleteDoc(doc(rezepteColl, id));
+  // The recipe is gone at this point; leftover photos are only wasted storage.
+  try {
+    const { items } = await listAll(ref(storage, `rezepte/${id}`));
+    await Promise.all(items.map((item) => deleteObject(item)));
+  } catch (error) {
+    console.warn("Could not delete photos of recipe", id, error);
+  }
 }
 
 async function saveImage(file, rezeptId) {

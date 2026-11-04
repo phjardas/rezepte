@@ -2,6 +2,11 @@ import {
   Button,
   CardActions,
   CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
   TextField,
   Typography,
 } from "@mui/material";
@@ -9,7 +14,7 @@ import { Field, Form, Formik } from "formik";
 import { useCallback, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { object, string } from "yup";
-import { useSaveRezept } from "../../data";
+import { deleteRezept, useSaveRezept } from "../../data";
 import Images from "./Images";
 import Kategorien from "./Kategorien";
 
@@ -36,7 +41,7 @@ export default function RezeptForm({ rezept }) {
       kategorieIds:
         rezept && rezept.kategorien ? Object.keys(rezept.kategorien) : [],
     }),
-    [rezept]
+    [rezept],
   );
   const [images, setImages] = useState((rezept && rezept.images) || []);
 
@@ -54,7 +59,7 @@ export default function RezeptForm({ rezept }) {
         setSubmitting(false);
       }
     },
-    [saveRezept, navigate, images]
+    [saveRezept, navigate, images],
   );
 
   return (
@@ -103,6 +108,7 @@ export default function RezeptForm({ rezept }) {
           <Kategorien values={values.kategorieIds} />
           <Images images={images} setImages={setImages} />
           <CardActions sx={{ mt: 2 }}>
+            {rezept && <DeleteButton rezept={rezept} />}
             <Button
               type="reset"
               variant="text"
@@ -125,5 +131,63 @@ export default function RezeptForm({ rezept }) {
         </Form>
       )}
     </Formik>
+  );
+}
+
+function DeleteButton({ rezept }) {
+  const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [error, setError] = useState();
+
+  const onDelete = async () => {
+    setDeleting(true);
+    setError(undefined);
+    try {
+      await deleteRezept(rezept.id);
+      navigate("/rezepte", { replace: true });
+    } catch (e) {
+      setError(e);
+      setDeleting(false);
+    }
+  };
+
+  return (
+    <>
+      <Button color="error" onClick={() => setOpen(true)} sx={{ mr: "auto" }}>
+        Löschen
+      </Button>
+      <Dialog open={open} onClose={() => !deleting && setOpen(false)}>
+        <DialogTitle>Rezept löschen?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            „{rezept.title}“ wird mit allen Bildern endgültig gelöscht.
+          </DialogContentText>
+          {error && (
+            <Typography color="error" sx={{ mt: 2 }}>
+              {error.message}
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button
+            color="inherit"
+            onClick={() => setOpen(false)}
+            disabled={deleting}
+          >
+            Abbrechen
+          </Button>
+          <Button
+            color="error"
+            variant="contained"
+            onClick={onDelete}
+            disabled={deleting}
+            startIcon={deleting && <CircularProgress size="1em" />}
+          >
+            Löschen
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
