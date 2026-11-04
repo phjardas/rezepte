@@ -1,6 +1,5 @@
 import { lazy, Suspense, useMemo } from "react";
-import { Navigate, RouterProvider } from "react-router";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router";
 import Loading from "../Loading";
 
 const SignIn = lazy(() => import("./signin"));

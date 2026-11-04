@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { useCallback, useMemo, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import { object, string } from "yup";
 import { useSaveRezept } from "../../data";
 import Images from "./Images";

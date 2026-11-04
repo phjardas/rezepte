@@ -1,5 +1,4 @@
-import { Autocomplete } from "@mui/lab";
-import { TextField, Typography } from "@mui/material";
+import { Autocomplete, TextField, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FieldArray } from "formik";
 import { useCallback, useMemo } from "react";

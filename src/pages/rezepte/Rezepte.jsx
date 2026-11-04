@@ -1,7 +1,7 @@
 import { Add as AddIcon } from "@mui/icons-material";
 import { ImageListItemBar } from "@mui/material";
 import { useCallback, useMemo } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router";
 import { useKategorien, useRezepte } from "../../data";
 import ErrorMessage from "../../ErrorMessage";
 import Fab from "../../Fab";

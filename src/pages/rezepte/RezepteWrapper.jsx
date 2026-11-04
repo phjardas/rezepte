@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from "react-router";
 import { KategorienProvider, RezepteProvider } from "../../data";
 import { SearchProvider } from "../../data/search";
 

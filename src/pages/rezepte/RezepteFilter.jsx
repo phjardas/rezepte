@@ -67,12 +67,14 @@ export default function RezepteFilter({
         onChange={(e) => setSearch(e.currentTarget.value)}
         variant="outlined"
         size="small"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          },
         }}
         className={classes.search}
       />

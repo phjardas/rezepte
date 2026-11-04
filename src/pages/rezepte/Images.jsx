@@ -70,7 +70,7 @@ export default function Images({ images, setImages }) {
   const onDrop = useCallback((files) => files.forEach(addImage), [addImage]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: ["image/*"],
+    accept: { "image/*": [] },
     multiple: true,
     onDrop,
   });

@@ -1,7 +1,6 @@
 import { Edit as EditIcon } from "@mui/icons-material";
 import { Box, Card, CardContent, Typography } from "@mui/material";
-import { useParams } from "react-router";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { useAuth } from "../../auth";
 import { useRezept } from "../../data";
 import ErrorMessage from "../../ErrorMessage";

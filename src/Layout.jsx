@@ -7,7 +7,7 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import UserProfileButton from "./UserProfileButton";
 
 export default function Layout({ title, back, gutter, children }) {
