@@ -46,8 +46,8 @@ export default defineConfig({
         lang: "de",
         start_url: ".",
         display: "standalone",
-        theme_color: "#009688",
-        background_color: "#f5f5f5",
+        theme_color: "#fbf6ef",
+        background_color: "#fbf6ef",
         icons: [
           ...iconSizes.flatMap((size) => [
             {

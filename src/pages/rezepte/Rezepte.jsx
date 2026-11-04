@@ -1,14 +1,14 @@
 import { Add as AddIcon } from "@mui/icons-material";
-import { ImageListItemBar } from "@mui/material";
+import { Box, ImageListItemBar } from "@mui/material";
 import { useCallback, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { useKategorien, useRezepte } from "../../data";
 import ErrorMessage from "../../ErrorMessage";
 import Fab from "../../Fab";
-import { Grid, GridTile } from "../../Grid";
 import Layout from "../../Layout";
-import LinkBehavior from "../../LinkBehavior";
 import Loading from "../../Loading";
+import Logo from "../../Logo";
+import { Quilt, QuiltItem } from "../../Quilt";
 import RezepteFilter from "./RezepteFilter";
 
 function useFilter() {
@@ -50,7 +50,7 @@ export default function Rezepte() {
       {loading && <Loading />}
       {error && <ErrorMessage error={error} />}
       {rezepte && <RezepteList rezepte={rezepte} />}
-      <Fab color="secondary" component={Link} to="/rezepte/_neu">
+      <Fab component={Link} to="/rezepte/_neu" aria-label="Neues Rezept">
         <AddIcon />
       </Fab>
     </Layout>
@@ -67,19 +67,19 @@ function RezepteList({ rezepte }) {
   if (!sorted.length) return <ErrorMessage message="Keine Rezepte gefunden." />;
 
   return (
-    <Grid>
-      {sorted.map((rezept) => (
-        <GridTile
+    <Quilt>
+      {sorted.map((rezept, i) => (
+        <QuiltItem
           key={rezept.id}
-          component={LinkBehavior}
+          index={i}
+          component={Link}
           to={`/rezepte/${rezept.id}`}
-          style={{
-            backgroundImage:
-              rezept.images && rezept.images.length > 0
-                ? `url(${rezept.images[0].src})`
-                : undefined,
-          }}
         >
+          {rezept.images?.length > 0 ? (
+            <img src={rezept.images[0].src} alt="" loading="lazy" />
+          ) : (
+            <Placeholder />
+          )}
           <ImageListItemBar
             title={rezept.title}
             subtitle={
@@ -92,8 +92,25 @@ function RezepteList({ rezepte }) {
                 .join(", ")
             }
           />
-        </GridTile>
+        </QuiltItem>
       ))}
-    </Grid>
+    </Quilt>
+  );
+}
+
+function Placeholder() {
+  return (
+    <Box
+      sx={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(135deg, #f3dcc8, #e7c3a6)",
+        color: "rgb(180 68 31 / 0.4)",
+      }}
+    >
+      <Logo sx={{ fontSize: "3rem" }} />
+    </Box>
   );
 }

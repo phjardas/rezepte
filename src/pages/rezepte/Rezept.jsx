@@ -5,10 +5,10 @@ import { useAuth } from "../../auth";
 import { useRezept } from "../../data";
 import ErrorMessage from "../../ErrorMessage";
 import Fab from "../../Fab";
-import { Grid, GridTile } from "../../Grid";
 import KategorieChips from "../../KategorieChips";
 import Layout from "../../Layout";
 import Loading from "../../Loading";
+import { Quilt, QuiltItem } from "../../Quilt";
 import UserChip from "../../UserChip";
 
 export default function RezeptPage() {
@@ -30,16 +30,30 @@ function Rezept({ rezept }) {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Typography style={{ whiteSpace: "pre-line" }}>{rezept.text}</Typography>
       {rezept.images && rezept.images.length > 0 && (
-        <Grid>
-          {rezept.images.map((image) => (
-            <GridTile
+        <Quilt>
+          {rezept.images.map((image, i) => (
+            <QuiltItem
               key={image.src}
-              style={{ backgroundImage: `url(${image.src})` }}
-            />
+              index={i}
+              component="a"
+              href={image.src}
+              target="_blank"
+              rel="noopener"
+            >
+              <img src={image.src} alt="" loading="lazy" />
+            </QuiltItem>
           ))}
-        </Grid>
+        </Quilt>
+      )}
+      {rezept.text && (
+        <Card>
+          <CardContent>
+            <Typography sx={{ whiteSpace: "pre-line", lineHeight: 1.7 }}>
+              {rezept.text}
+            </Typography>
+          </CardContent>
+        </Card>
       )}
       <Card>
         <CardContent>
@@ -62,8 +76,8 @@ function Rezept({ rezept }) {
       </Card>
       {user.id === rezept.owner && (
         <Fab
-          color="secondary"
           component={Link}
+          aria-label="Rezept bearbeiten"
           to={`/rezepte/${rezept.id}/bearbeiten`}
         >
           <EditIcon />

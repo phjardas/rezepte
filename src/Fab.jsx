@@ -6,7 +6,7 @@ export default function Fab({ ...props }) {
       color="primary"
       sx={{
         position: { xs: "fixed", lg: "absolute" },
-        bottom: "calc(var(--mui-spacing) * 2)",
+        bottom: "calc(var(--mui-spacing) * 2 + env(safe-area-inset-bottom))",
         right: "calc(var(--mui-spacing) * 2)",
       }}
       {...props}

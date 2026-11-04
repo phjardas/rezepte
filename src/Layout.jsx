@@ -13,7 +13,7 @@ import UserProfileButton from "./UserProfileButton";
 export default function Layout({ title, back, gutter, children }) {
   return (
     <>
-      <AppBar position="sticky" color="primary">
+      <AppBar position="sticky">
         <Toolbar>
           {back && (
             <IconButton
@@ -26,13 +26,15 @@ export default function Layout({ title, back, gutter, children }) {
               <ArrowBackIcon />
             </IconButton>
           )}
-          <Typography variant="h6">{title || "Rezepte"}</Typography>
-          <Box sx={{ ml: "auto" }}>
+          <Typography variant="h6" component="h1" noWrap>
+            {title || "Rezepte"}
+          </Typography>
+          <Box sx={{ ml: "auto", pl: 1 }}>
             <UserProfileButton />
           </Box>
         </Toolbar>
       </AppBar>
-      <Container component="main" sx={{ py: gutter ? 2 : undefined }}>
+      <Container component="main" sx={{ py: gutter ? 2 : undefined, pb: 12 }}>
         {children}
       </Container>
     </>
