@@ -1,0 +1,32 @@
+name: Release
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: package.json
+      # Node 25+ no longer bundles corepack, so it is installed explicitly.
+      - run: npm install --global corepack@latest && corepack enable
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm build
+
+      - if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        uses: google-github-actions/auth@v3
+        with:
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      - if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+        run: pnpm run deploy --only hosting,firestore --non-interactive
