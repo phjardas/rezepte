@@ -15,7 +15,7 @@ function useFilter() {
   const location = useLocation();
   const navigate = useNavigate();
   const filter = useMemo(() => {
-    const search = new URLSearchParams(window.location.search);
+    const search = new URLSearchParams(location.search);
     return {
       search: search.get("search"),
       kategorien: search.get("kategorien")?.split(",") ?? [],

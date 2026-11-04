@@ -7,6 +7,26 @@ const iconSizes = [48, 72, 96, 144, 192, 512, 1024];
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    // The Firebase SDK chunk alone is about 580 kB and cannot be split further.
+    chunkSizeWarningLimit: 600,
+    rolldownOptions: {
+      output: {
+        // Large libraries change less often than the app, so separate chunks
+        // stay cached in the browser across deploys.
+        codeSplitting: {
+          groups: [
+            { name: "firebase", test: /node_modules[\\/]@?firebase/ },
+            { name: "mui", test: /node_modules[\\/]@(mui|emotion)[\\/]/ },
+            {
+              name: "react",
+              test: /node_modules[\\/](react|react-dom|scheduler|react-router)[\\/]/,
+            },
+          ],
+        },
+      },
+    },
+  },
   plugins: [
     react(),
     VitePWA({
