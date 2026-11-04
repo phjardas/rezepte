@@ -6,12 +6,12 @@ import { useKategorien } from "../../data";
 export default function RezepteFilter({ filter, setFilter }) {
   const setSearch = useCallback(
     (search) => setFilter((f) => ({ ...f, search })),
-    [setFilter]
+    [setFilter],
   );
   const kategorien = useKategorien();
   const sortedKategorien = useMemo(
     () => [...kategorien].sort((a, b) => a.label.localeCompare(b.label)),
-    [kategorien]
+    [kategorien],
   );
   const toggleKategorie = useCallback(
     (id) =>
@@ -21,7 +21,7 @@ export default function RezepteFilter({ filter, setFilter }) {
           ? f.kategorien.filter((k) => k !== id)
           : [...f.kategorien, id],
       })),
-    [setFilter]
+    [setFilter],
   );
 
   return (
@@ -70,8 +70,13 @@ export default function RezepteFilter({ filter, setFilter }) {
               color={active ? "primary" : "default"}
               variant={active ? "filled" : "outlined"}
               onClick={() => toggleKategorie(kategorie.id)}
-              onDelete={active ? () => toggleKategorie(kategorie.id) : undefined}
-              sx={{ flexShrink: 0, bgcolor: active ? undefined : "background.paper" }}
+              onDelete={
+                active ? () => toggleKategorie(kategorie.id) : undefined
+              }
+              sx={{
+                flexShrink: 0,
+                bgcolor: active ? undefined : "background.paper",
+              }}
             />
           );
         })}
