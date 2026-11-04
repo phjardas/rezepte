@@ -33,36 +33,42 @@ export default function UserProfileButton() {
   const [anchor, setAnchor] = useState();
   const handleClick = useCallback(
     (e) => setAnchor(e.currentTarget),
-    [setAnchor]
+    [setAnchor],
   );
   const handleClose = useCallback(() => setAnchor(null), [setAnchor]);
 
   if (!user) return null;
 
-  return (<>
-    <IconButton color="inherit" onClick={handleClick} size="large">
-      {user.photoURL ? (
-        <Avatar src={user.photoURL} alt={user.displayName || user.email} />
-      ) : (
-        <PersonIcon />
-      )}
-    </IconButton>
-    <Popover
-      open={Boolean(anchor)}
-      anchorEl={anchor}
-      onClose={handleClose}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "right",
-      }}
-      transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
-      }}
-    >
-      <UserPopover user={user} signOut={signOut} />
-    </Popover>
-  </>);
+  return (
+    <>
+      <IconButton color="inherit" onClick={handleClick} size="large">
+        {user.photoURL ? (
+          <Avatar
+            src={user.photoURL}
+            alt={user.displayName || user.email}
+            slotProps={{ img: { referrerPolicy: "no-referrer" } }}
+          />
+        ) : (
+          <PersonIcon />
+        )}
+      </IconButton>
+      <Popover
+        open={Boolean(anchor)}
+        anchorEl={anchor}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <UserPopover user={user} signOut={signOut} />
+      </Popover>
+    </>
+  );
 }
 
 function UserPopover({ user, signOut }) {
@@ -71,6 +77,7 @@ function UserPopover({ user, signOut }) {
       {user.photoURL && (
         <img
           src={user.photoURL}
+          referrerPolicy="no-referrer"
           width={128}
           height={128}
           className={classes.image}

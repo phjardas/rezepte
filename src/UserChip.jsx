@@ -14,7 +14,14 @@ export default function UserChip({ id, ...props }) {
     );
   return (
     <Chip
-      avatar={user.photoURL && <Avatar src={user.photoURL} />}
+      avatar={
+        user.photoURL && (
+          <Avatar
+            src={user.photoURL}
+            slotProps={{ img: { referrerPolicy: "no-referrer" } }}
+          />
+        )
+      }
       label={user.label}
       {...props}
     />

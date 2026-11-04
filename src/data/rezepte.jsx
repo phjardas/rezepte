@@ -1,4 +1,11 @@
-import { collection, getFirestore, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getFirestore,
+  serverTimestamp,
+  setDoc,
+} from "firebase/firestore";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { createContext, useCallback, useContext, useMemo } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { ulid } from "ulid";
@@ -8,6 +15,7 @@ import { useSearch } from "./search";
 import { materialize } from "./utils";
 
 const rezepteColl = collection(getFirestore(firebase), "rezepte");
+const storage = getStorage(firebase);
 
 const Context = createContext();
 
@@ -68,9 +76,9 @@ export function useSaveRezept(id) {
 
   return useCallback(
     async (values, images) => {
-      const ref = id ? rezepteColl.doc(id) : rezepteColl.doc();
+      const rezeptRef = id ? doc(rezepteColl, id) : doc(rezepteColl);
       const savedImages = await Promise.all(
-        images.map((img) => (img.src ? img : saveImage(img, ref.id)))
+        images.map((img) => (img.src ? img : saveImage(img, rezeptRef.id)))
       );
       const rezept = {
         ...values,
@@ -78,8 +86,8 @@ export function useSaveRezept(id) {
         owner: user.id,
         updatedAt: serverTimestamp(),
       };
-      await ref.set(rezept);
-      return ref;
+      await setDoc(rezeptRef, rezept);
+      return rezeptRef;
     },
     [id, user]
   );
@@ -88,9 +96,9 @@ export function useSaveRezept(id) {
 async function saveImage(file, rezeptId) {
   const size = await getImageSize(file);
   const imageId = ulid();
-  const ref = storage.ref().child("rezepte").child(rezeptId).child(imageId);
-  await ref.put(file, { cacheControl: "max-age=31536000" });
-  const src = await ref.getDownloadURL();
+  const imageRef = ref(storage, `rezepte/${rezeptId}/${imageId}`);
+  await uploadBytes(imageRef, file, { cacheControl: "max-age=31536000" });
+  const src = await getDownloadURL(imageRef);
   return { src, ...size };
 }
 

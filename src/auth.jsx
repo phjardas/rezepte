@@ -45,7 +45,7 @@ function AuthenticatedProvider({ user: fbUser, children }) {
         if (!fbLoading && !fbError && !initialized) {
           setState((s) => ({ ...s, initialized: true }));
 
-          if (data.exists) {
+          if (data.exists()) {
             await updateDoc(userDoc, {
               lastLogin: serverTimestamp(),
               appVersion: version,
