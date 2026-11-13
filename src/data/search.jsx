@@ -11,7 +11,6 @@ export function SearchProvider({ children }) {
       rezepte &&
       new Fuse(rezepte, {
         keys: ["title", "text"],
-        id: "id",
         threshold: 0.4,
       }),
     [rezepte]

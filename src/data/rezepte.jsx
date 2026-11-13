@@ -52,7 +52,7 @@ export function useRezepte({ filter = {} } = {}) {
 function useRezepteFilter({ kategorien, search }) {
   const index = useSearch();
   const ids = useMemo(
-    () => search && index && index.search(search),
+    () => search && index && index.search(search).map((r) => r.item.id),
     [search, index],
   );
 
