@@ -30,7 +30,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      injectRegister: "autoUpdate",
+      registerType: "autoUpdate",
       devOptions: {
         enabled: true,
       },
