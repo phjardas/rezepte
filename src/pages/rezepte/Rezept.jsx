@@ -1,5 +1,6 @@
 import { Edit as EditIcon } from "@mui/icons-material";
 import { Box, Container, Typography } from "@mui/material";
+import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { useAuth } from "../../auth";
 import { useRezept } from "../../data";
@@ -15,6 +16,7 @@ export default function RezeptPage() {
   const [rezept, loading, error] = useRezept(id);
   const images = rezept?.images ?? [];
   const hero = images.length > 0;
+  useWakeLock();
 
   return (
     <Layout title={rezept?.title} gutter={!hero} hero={hero} back="/rezepte">
@@ -25,6 +27,32 @@ export default function RezeptPage() {
         (hero ? <WithHero rezept={rezept} /> : <Details rezept={rezept} />)}
     </Layout>
   );
+}
+
+// Keep the screen on while cooking. The browser drops the lock whenever the
+// page is hidden, so it is requested again when the page becomes visible.
+function useWakeLock() {
+  useEffect(() => {
+    let lock;
+    let active = true;
+    const request = async () => {
+      if (document.visibilityState !== "visible") return;
+      try {
+        const next = await navigator.wakeLock.request("screen");
+        if (active) lock = next;
+        else next.release();
+      } catch {
+        // Denied, e.g. by battery saver. Not worth bothering the user about.
+      }
+    };
+    request();
+    document.addEventListener("visibilitychange", request);
+    return () => {
+      active = false;
+      document.removeEventListener("visibilitychange", request);
+      lock?.release();
+    };
+  }, []);
 }
 
 function WithHero({ rezept }) {
