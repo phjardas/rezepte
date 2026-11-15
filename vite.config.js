@@ -2,7 +2,7 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
-// for s in 48 72 96 144 192 512 1024; do inkscape -w $s -h $s public/favicon.svg -o public/logo-$s.png; done
+// for s in 48 72 96 144 192 512 1024; do inkscape -w $s -h $s public/favicon.svg -o public/icon-$s.png; done
 const iconSizes = [48, 72, 96, 144, 192, 512, 1024];
 
 // https://vitejs.dev/config/
@@ -51,7 +51,7 @@ export default defineConfig({
         icons: [
           ...iconSizes.flatMap((size) => [
             {
-              src: `logo-${size}.png`,
+              src: `icon-${size}.png`,
               type: "image/png",
               sizes: `${size}x${size}`,
               purpose: "any maskable",
